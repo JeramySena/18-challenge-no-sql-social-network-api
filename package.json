@@ -1,7 +1,27 @@
 {
   "dependencies": {
+    "express": "^4.17.2",
     "i": "^0.3.7",
     "mongoose": "^6.1.8",
     "npm": "^8.3.2"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "18-challenge-no-sql-social-network-api",
+  "description": "AS A social media startup\r I WANT an API for my social network that uses a NoSQL database\r SO THAT my website can handle large amounts of unstructured data",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JeramySena/18-challenge-no-sql-social-network-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JeramySena/18-challenge-no-sql-social-network-api/issues"
+  },
+  "homepage": "https://github.com/JeramySena/18-challenge-no-sql-social-network-api#readme"
 }
