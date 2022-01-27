@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { route } = require('express/lib/application');
+
 const {
     getAllUser,
     getUserById,
@@ -21,7 +21,7 @@ router
   .put(updateUser)
   .delete(deleteUser);
 
-route
+router
   .route('/:userId/friends/:friendId')
   .post(addFriend)
   .delete(removeFriend)
