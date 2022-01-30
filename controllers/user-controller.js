@@ -2,30 +2,7 @@ const { User } = require("../models");
 
 const userController = {
   getAllUser(req, res) {
-    User.find({})
-      .populate({
-        path: "thoughts",
-        select: "-__v",
-      })
-      .populate({
-        path: "friends",
-        select: "-__v",
-      })
-      .select("-__v")
-      // .sort({ _id: -1 })
-      .then((dbUserData) => res.json(dbUserData))
-      .catch((err) => {
-        console.log(err);
-        res.sendStatus(400);
-      });
-  },
-
-  getUserById({ params }, res) {
-    User.findOne({ _id: params.id })
-      .populate({
-        path: "thoughts",
-        select: "-__v",
-      })
+    User.find()      
       .select("-__v")
       .then((dbUserData) => res.json(dbUserData))
       .catch((err) => {
@@ -34,8 +11,20 @@ const userController = {
       });
   },
 
-  createUser({ body }, res) {
-    User.create(body)
+  getUserById(req, res) {
+    User.findOne({ _id: req.params.userId })
+    .select("-__v")
+    .populate('thoughts')
+      .populate('friends')
+      .then((dbUserData) => res.json(dbUserData))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
+  },
+
+  createUser( req, res ) {
+    User.create(req.body)
       .then((dbUserData) => res.json(dbUserData))
       .catch((err) => res.status(400).json(err));
   },
@@ -57,7 +46,7 @@ const userController = {
   },
 
   updateUser({ params, body }, res) {
-    User.findOneAndUpdate({ _id: params.id }, body, {
+    User.findOneAndUpdate({ _id: params.userId }, body, {
       new: true,
       runValidators: true,
     })
@@ -72,7 +61,7 @@ const userController = {
   },
 
   deleteUser({ params }, res) {
-    User.findOneAndDelete({ _id: params.id })
+    User.findOneAndDelete({ _id: params.userId })
       .then((dbUserData) => res.json(dbUserData))
       .catch((err) => res.json(err));
   },
