@@ -11,7 +11,7 @@ const thoughtsController = {
     },
   
     getThoughtsById({ params }, res) {
-      Thoughts.findOne({ _id: params.id })
+      Thoughts.findOne({ _id: params.thoughtsId })
          .then((dbThoughtsData) => {
          if (!dbThoughtsData) {
             res.status(404).json({ message: "No thoughts found with this id!" });
@@ -25,16 +25,18 @@ const thoughtsController = {
     createThoughts({ params, body }, res) {
         Thoughts.create(body)
           .then(({ _id }) => {
+            console.log(_id)
             return User.findOneAndUpdate(
-              { _id: params.userId },
+              { _id: body.userId },
               { $push: { thoughts: _id } },
               { new: true }
             );
           })
           .then(dbUserData => {
               if (!dbUserData) {
-              res.status(404).json({ message: 'No user found with this id!' });
-              return;
+                console.log (dbUserData)
+                return res.status(404).json({ message: 'No user found with this id!' });
+              
             }
             res.json(dbUserData);
           })
